@@ -1,21 +1,26 @@
-import "../../components/datatable/datatable.scss";
-import { DataGrid } from "@mui/x-data-grid";
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import Box from '@mui/material/Box';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import DialogTitle from '@mui/material/DialogTitle';
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import { supabase } from '../../client';
-import { useEffect } from "react";
+import Link from '@mui/material/Link';
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
-import '../../components/datatable/datatable.scss'
+import "../../components/datatable/datatable.scss";
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+
+
+import { supabase } from '../../client';
+import { useEffect, useState } from "react";
 
 
 
-function Datatable() {
+export default function Books() {
 
     const [data, setData] = useState([]);
     const [Author, setAuthor] = useState([])
@@ -26,15 +31,16 @@ function Datatable() {
     const [avatarUrl, setAvatatUrl] = useState("")
     const { NameBook, IdAuthor, IdType, Describe, IdPublish, Price } = post
 
-    const [open, setOpen] = useState(false)
+
+    const [open, setOpen] = useState(false);
 
     const handleClickOpen = () => {
         setOpen(true);
     };
-
     const handleClose = () => {
         setOpen(false);
     };
+
 
     useEffect(() => {
         book();
@@ -50,7 +56,6 @@ function Datatable() {
         console.log(data)
         setData(data)
     }
-
     async function author() {
         const { data } = await supabase
             .from("Author")
@@ -75,6 +80,7 @@ function Datatable() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         let avatarUrl = ""
+
         if (image) {
             const { data, error } = await supabase.storage.from("avatars").upload(`${Date.now()}_${image.name}`, image)
 
@@ -102,25 +108,7 @@ function Datatable() {
         alert("Thêm thành công !")
 
     }
-
-    // async function createPost() {
-    //     const { error } = await supabase
-    //         .from('Book')
-    //         .insert([{ NameBook, IdAuthor, IdType, IdPublish, Price }])
-    //         .single()
-    //     setPost({ NameBook: "", IdAuthor: "", IdType: "", IdPublish: "", Price: "" })
-    //     book()
-    //     if (error) {
-    //         console.log("Lỗi")
-    //         alert("Thêm không thành công !")
-    //         return
-    //     }
-    //     alert("Thêm thành công !")
-
-
-    // }
-
-
+    // Xóa sách
     const remove = async (id) => {
         const { error } = await supabase
             .from('Book')
@@ -136,6 +124,56 @@ function Datatable() {
     }
 
 
+    const ExpandableCell = ({ value }) => {
+        const [expanded, setExpanded] = React.useState(false);
+
+        return (
+            <Box>
+                {expanded ? value : value.slice(0, 120)}&nbsp;
+                {value.length > 200 && (
+                    // eslint-disable-next-line jsx-a11y/anchor-is-valid
+                    <Link
+                        type="button"
+                        component="button"
+                        sx={{ fontSize: 'inherit' }}
+                        onClick={() => setExpanded(!expanded)}
+                    >
+                        {expanded ? ' Ẩn bớt' : ' Xem thêm'}
+                    </Link>
+                )}
+            </Box>
+        );
+    };
+
+    ExpandableCell.propTypes = {
+        /**
+         * The cell value, but if the column has valueGetter, use getValue.
+         */
+        value: PropTypes.any,
+    };
+
+    const columns = [
+
+        { field: 'id', headerName: "ID", width: 70, height: 100 },
+        { field: 'NameBook', headerName: "Tên sách", width: 200, editable: true },
+        { field: 'NameType', headerName: "Thể loại", width: 200, editable: true },
+        { field: 'IdAuthor', headerName: "Tên tác giả", width: 200, editable: true },
+        {
+            field: 'Describe', headerName: "Mô tả", width: 400,
+            renderCell: (params) => <ExpandableCell {...params} />,
+        },
+        { field: 'Year', headerName: "Năm xb", width: 80, editable: true },
+        { field: 'Publisher', headerName: "Nhà xuất bản", width: 200, editable: true },
+        { field: 'Price', headerName: "Giá", width: 100, editable: true },
+        {
+            field: 'actions',
+            type: 'actions',
+            width: 100,
+            getActions: () => [
+              <GridActionsCellItem icon={<EditIcon />} label="Edit" />,
+              <GridActionsCellItem icon={<DeleteIcon />} label="Delete" />,
+            ],
+          },];
 
 
     const rows = data.map((post) => ({
@@ -147,23 +185,14 @@ function Datatable() {
         Publisher: post.Publish.Publisher,
         Price: post.Price,
         Describe: post.Describe
-    }));
 
-    const Columns = [
-
-        { field: 'id', headerName: "ID", width: 70, height: 100 },
-        { field: 'NameBook', headerName: "Tên sách", width: 200, editable: true },
-        { field: 'NameType', headerName: "Thể loại", width: 200, editable: true },
-        { field: 'IdAuthor', headerName: "Tên tác giả", width: 200, editable: true },
-        { field: 'Describe', headerName: "Mô tả", width: 400, editable: true },
-        { field: 'Year', headerName: "Năm xb", width: 80, editable: true },
-        { field: 'Publisher', headerName: "Nhà xuất bản", width: 200, editable: true },
-        { field: 'Price', headerName: "Giá", width: 100, editable: true }];
-
+    }))
 
     const actionColumn = [
         {
             field: "action",
+            type: 'action',
+
             headerName: "Action",
             width: 200,
             renderCell: (params) => {
@@ -174,7 +203,6 @@ function Datatable() {
                         </Link>
                         <div
                             className="deleteButton"
-                            onClick={() => { if (window.confirm("Bạn có muốn xóa không")) remove(params.row.id) }}
                         >
                             Delete
                         </div>
@@ -183,14 +211,11 @@ function Datatable() {
             },
         },
     ];
-    return (
-        <div className="home">
-            {/* <Modal show={open}>
-                <div>
-                    fghjkl
-                </div>
 
-            </Modal> */}
+
+    return (
+
+        <div className='home'>
             <Sidebar />
             <div className="homeContainer">
                 <Navbar />
@@ -200,19 +225,33 @@ function Datatable() {
                         <button className="link" onClick={handleClickOpen}>
                             Thêm mới
                         </button>
-                        {/* <Dialog2/> */}
                     </div>
                     <DataGrid
-                        className="datagrid"
                         rows={rows}
-                        columns={Columns.concat(actionColumn)}
-                        pageSize={8}
-                        rowsPerPageOptions={[9]}
+                        columns={columns.concat(actionColumn)}
+                        getEstimatedRowHeight={() => 100}
+                        getRowHeight={() => 'auto'}
+                        pageSize={10}
+                        showCellRightBorder
+                        showColumnRightBorder
+                        experimentalFeatures={{ newEditingApi: true }}
+                        initialState={{ pinnedColumns: { right: ['action'] } }}
                         checkboxSelection
+                        components={{ Toolbar: GridToolbar }}
+                        sx={{
+                            '&.MuiDataGrid-root--densityCompact .MuiDataGrid-cell': {
+                                py: 1,
+                            },
+                            '&.MuiDataGrid-root--densityStandard .MuiDataGrid-cell': {
+                                py: '15px',
+                            },
+                            '&.MuiDataGrid-root--densityComfortable .MuiDataGrid-cell': {
+                                py: '22px',
+                            },
+                        }}
                     />
                 </div>
-            </div>
-            <div>
+                <div>
                 <Dialog open={open} onClose={handleClose}>
                     <DialogTitle>
                         Thêm Sách
@@ -320,9 +359,7 @@ function Datatable() {
 
                 </Dialog>
             </div>
-
+            </div>
         </div>
     );
-};
-
-export default Datatable;
+}

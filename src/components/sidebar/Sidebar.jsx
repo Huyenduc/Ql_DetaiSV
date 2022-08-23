@@ -80,7 +80,7 @@ const Sidebar = () => {
 
           <li>
             <PsychologyOutlinedIcon className="icon" />
-            <span>Quản lí Hóa đơn</span>
+            <span>Quản lí đơn hàng</span>
           </li>
           </Link>
           <p className="title">USER</p>

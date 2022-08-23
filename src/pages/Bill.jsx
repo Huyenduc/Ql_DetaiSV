@@ -24,20 +24,20 @@ const Author = () => {
         setData(data)
     }
 
-    const remove = async (id) => {
-        const { error } = await supabase
-            .from('BookType')
-            .delete()
-            .match({ IdAuthor: id })
+    // const remove = async (id) => {
+    //     const { error } = await supabase
+    //         .from('BookType')
+    //         .delete()
+    //         .match({ IdAuthor: id })
 
-        if (error) {
-            console.log("lỗi")
-            alert("Không thể xóa lỗi khóa ngoại ! ")
-            return
-        }
+    //     if (error) {
+    //         console.log("lỗi")
+    //         alert("Không thể xóa lỗi khóa ngoại ! ")
+    //         return
+    //     }
 
-        author()
-    }
+    //     author()
+    // }
 
     const rows = data.map((post) => ({
         id: post.IdBill,
@@ -49,26 +49,32 @@ const Author = () => {
         // Hometown: post.Hometown
     }));
 
+    // console.log(rows[1].id)
+
     const Columns = [
 
         { field: 'id', headerName: "Mã đơn hàng", width: 120, height: 100 },
-        { field: 'name', headerName: "Ngày đặt hàng", width: 200, editable: true },
+        { field: 'name', headerName: "Ngày đặt hàng", width: 150, editable: true },
         { field: 'kh', headerName: "Họ tên KH", width: 180, editable: true },
         { field: 'dt', headerName: "Số điện thoại", width: 100, editable: true },
-        { field: 'dc', headerName: "Địa chỉ", width: 200, editable: true },
+        { field: 'dc', headerName: "Địa chỉ", width: 350, editable: true },
         { field: 'year', headerName: "Tổng tiền", width: 100, editable: true }];
         // { field: 'Hometown', headerName: "Quê quán", width: 400, editable: true }];
 
 
     const actionColumn = [
         {
+           
             field: "action",
             headerName: "Tình trạng",
             width: 200,
             renderCell: (params) => {
+                // console.log(params.id)
                 return (
+                    
+                    
                     <div className="cellAction">
-                        <Link to="/ " style={{ textDecoration: "none" }}>
+                        <Link to={`/users/new/${params.id}`} style={{ textDecoration: "none" }}>
                             <div className="viewButton">Đang xử lí</div>
                         </Link>
                         {/* <div
@@ -82,6 +88,7 @@ const Author = () => {
             },
         },
     ];
+
     return (
         <div className="home">
             <Sidebar />

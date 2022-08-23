@@ -1,7 +1,7 @@
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import List from "./pages/list/List";
-import Book from "./pages/book/Book"
+import Book from "./pages/book/Books"
 import Single from "./pages/single/Single";
 import New from "./pages/new/New";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -28,7 +28,7 @@ function App() {
               <Route index element={<List />} />
               <Route path=":userId" element={<Single />} />
               <Route
-                path="new"
+                path="new/:idBill"
                 element={<New inputs={userInputs} title="Add New User" />}
               />
             </Route>
