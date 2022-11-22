@@ -1,0 +1,81 @@
+
+.icon{
+    font-size: 20px;
+    color: white;
+}
+.icon2{
+    font-size: 40px;
+    color: white;
+}
+
+.logo{
+    width: 90px;
+    margin-left:20;
+}
+.Text h2{
+    text-decoration: uppercase;
+    color: #fff;
+    font-weight: 700;
+    font-family: arial;
+}
+
+.Text h3{
+    text-decoration: uppercase;
+    color: #fff;
+    font-weight: 700;
+    font-family: arial;
+}
+
+
+.css-1wvcp5q-MuiGrid-root>.MuiGrid-item {
+    padding-top: 0px !important;
+    padding-left: 0px !important;
+}
+
+
+.Seach {
+    /* width: 100%; */
+    display: flex;
+    justify-content: center;
+
+}
+
+.SearchTasks {
+    display: flex;
+    color: #555;
+    align-items: center;
+    border: 0.5px solid lightgray;
+    padding: 3px;
+    width: 50%;
+    margin-top: 15px;
+    height: 50px;
+    border-radius: 5px;
+
+}
+
+
+.SearchTasks input {
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+    background: transparent;
+    width: 100%;
+
+}
+
+.SearchTasks input ::placeholder {
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+}
+
+
+@media (max-width: 1100px) {
+   
+.logo{
+    width: 80%;
+    margin-left:20;
+} 
+
+}

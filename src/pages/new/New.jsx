@@ -98,7 +98,7 @@ function New() {
       field: 'img',
       headerName: 'Hình ảnh ',
       ...baseColumnOptions,
-      flex: 3,
+      flex: 2,
       colSpan: ({ row }) => {
         if (row.id === 'SUBTOTAL' || row.id === 'TOTAL') {
           return 3;
@@ -118,7 +118,7 @@ function New() {
         // console.log(params.formattedValue);
         return (
           <>
-            <img style={{width:40}} src={params.formattedValue} />
+            <img style={{width:40,maxHeight:40}} src={params.formattedValue} />
           </>
         );
       }

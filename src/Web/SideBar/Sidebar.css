@@ -1,0 +1,135 @@
+.SideBar {
+    transition: 0.5s;
+    font-family: Roboto, sans-serif;
+    background: #fdfdfd;
+    width: 300px;
+    overflow: hidden;
+    display: inline-block;
+    height: calc(100vh - 122px);
+    position: fixed;
+    top: 70px;
+    left: 0;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, .1);
+    z-index: 11 !important;
+
+}
+
+.Top {
+    height: 86px;
+    padding: 13px 15px 12px;
+    white-space: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    display: flex;
+    gap:10px;
+    position: relative;
+    border-bottom: 1px solid #e9e9e9;
+    background: #0095d6;
+    /* background-image: url("http://timesheet.nccsoft.vn/user-img-background.7f354e93c30f9d51fc3a.jpg"); */
+}
+
+.Top img {
+    width: 80px;
+    border-radius: 50%;
+    vertical-align: bottom !important;
+}
+
+.Top p {
+    color: white;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.Menu {
+    list-style: none;
+    padding: 0;
+}
+
+.Menu .List {
+    position: relative;
+    /* display: inline-flex; */
+    vertical-align: middle;
+    width: 100%;
+    padding: 10px 13px;
+
+    width: 100%;
+}
+
+
+
+.Menu .List li {
+    color: #747474;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    cursor: pointer;
+    padding: 16px 8px;
+
+}
+
+.Menu .List a{
+    color: #747474;
+}
+
+
+.Menu .List span {
+    padding-left: 15px;
+    font-size: 15px;
+    color: #333333;
+    font-weight: 700;
+}
+
+
+.Menu .List li :hover{
+    color: #F44336;
+}
+
+.Avatar img{
+    width: 50px;
+}
+
+.Footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid #eee;
+    padding: 15px;
+    overflow: hidden;
+    font-size: 13px;
+    color: #333333;
+}
+
+.Footer a {
+    color: #3171b9;
+    margin-left: 10px;
+    text-decoration: none;
+}
+
+.Active {
+    transition: 0.5s;
+    font-family: Roboto, sans-serif;
+    background: #fdfdfd;
+    width: 300px;
+    overflow: hidden;
+    display: inline-block;
+    height: calc(100vh - 122px);
+    position: fixed;
+    top: 122px;
+    left: 0;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, .1);
+    z-index: 11 !important;
+
+}
+
+@media (max-width: 1100px) {
+
+    .SideBar {
+        left: -300px;
+    }
+
+    .SideBar-hide{
+        left: -300px;
+    }
+    
+
+}

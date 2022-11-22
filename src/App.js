@@ -1,4 +1,5 @@
-import Home from "./pages/home/Home";
+// import Home from "./pages/home/Home";
+import Home from "./Web/Home";
 import Login from "./pages/login/Login";
 import List from "./pages/list/List";
 import Book from "./pages/book/Books"
@@ -21,7 +22,7 @@ function App() {
     <div className={darkMode ? "app dark" : "app"}>
       <BrowserRouter>
         <Routes>
-          <Route path="/">
+          {/* <Route path="/">
             <Route index element={<Home />} />
             <Route path="login" element={<Login />} />
             <Route path="users">
@@ -34,7 +35,6 @@ function App() {
             </Route>
             <Route path="book">
               <Route index element={<Book/>} />
-              {/* <Route path=":productId" element={<Single />} /> */}
               <Route
                 path="new"
                 element={<New inputs={productInputs} title="Add New Product" />}
@@ -53,6 +53,12 @@ function App() {
 
             <Route path="Customer"
             element={<Customer/>}>
+            </Route>
+          </Route> */}
+
+          <Route path="/">
+            <Route index element ={<Home/>}>
+
             </Route>
           </Route>
           
